@@ -1,6 +1,10 @@
-const express = require('express');
-const config = require('config');
+import { customRedisRateLimiter } from './middlewares/rateLimiter.js';
+
+import express from 'express';
+import config from 'config';
 const app = express();
+
+app.use(customRedisRateLimiter);
 
 const port = config.get('port.no') || process.env.PORT;
 
@@ -107,5 +111,5 @@ app.get('/getdetails', (req, res) => {
 });
 
 app.listen(port, function () {
-  console.log("Server started on port 3000.");
+  console.log(`Server started on port ${port}.`);
 });
