@@ -1,22 +1,23 @@
 const express = require('express');
 const config = require('config');
-const redis = require('ioredis');
+const redis = require('redis');
+const rateLimiter = require('redis-rate-limiter');
 const app = express();
 
-const redisPort=config.get('redisinfo.port');
-const redisHost=config.get('redisinfo.host');
+const redisPort=config.get('redisinfo.port') || process.env.PORT;
+const port = config.get('port.no') || process.env.PORT;
 
-const client = redis.createClient({
-  port: process.env.REDIS_PORT || 6379,
-  host: process.env.REDIS_HOST || 'localhost',
+const client=redis.createClient(redisPort);
+
+var limit = rateLimiter.create({
+  redis: client,
+  key: function(x) { return x.id },
+  rate: '10/second'
 });
-client.on('connect', function () {
-  console.log('connected');
-});
+
 
 let len = config.get('car.slot_size');
 let slotavailable = config.get('car.slot_size');
-let port = config.get('port.no') || process.env.port;
 
 let carDetails = [];
 
