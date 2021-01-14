@@ -1,0 +1,12 @@
+{
+    "car":{
+        "slot_size":"Your_Slot_size_here"
+    },
+    "port":{
+        "no":"NodeJs_Local_Port_No_Here"
+    },
+    "redisinfo":{
+        "port":"REDIS_PORT_HERE",
+        "host":"localhost"
+    }
+}
