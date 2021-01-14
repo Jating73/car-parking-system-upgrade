@@ -15,6 +15,18 @@ var limit = rateLimiter.create({
   rate: '10/second'
 });
 
+limit(request, function(err, rate) {
+  if (err) {
+    console.warn('Rate limiting not available');
+  } else {
+    console.log('Rate window: '  + rate.window);  // 60
+    console.log('Rate limit: '   + rate.limit);   // 100
+    console.log('Rate current: ' + rate.current); // 74
+    if (rate.over) {
+      console.error('Over the limit!');
+    }
+  }
+});
 
 let len = config.get('car.slot_size');
 let slotavailable = config.get('car.slot_size');
