@@ -1,32 +1,8 @@
 const express = require('express');
 const config = require('config');
-const redis = require('redis');
-const rateLimiter = require('redis-rate-limiter');
 const app = express();
 
-const redisPort=config.get('redisinfo.port') || process.env.PORT;
 const port = config.get('port.no') || process.env.PORT;
-
-const client=redis.createClient(redisPort);
-
-var limit = rateLimiter.create({
-  redis: client,
-  key: function(x) { return x.id },
-  rate: '10/second'
-});
-
-limit(request, function(err, rate) {
-  if (err) {
-    console.warn('Rate limiting not available');
-  } else {
-    console.log('Rate window: '  + rate.window);  // 60
-    console.log('Rate limit: '   + rate.limit);   // 100
-    console.log('Rate current: ' + rate.current); // 74
-    if (rate.over) {
-      console.error('Over the limit!');
-    }
-  }
-});
 
 let len = config.get('car.slot_size');
 let slotavailable = config.get('car.slot_size');
