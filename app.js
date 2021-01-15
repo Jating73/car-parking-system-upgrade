@@ -106,7 +106,6 @@ app.get("/getdetails/:number", (req, res) => {
   });
 });
 
-
 app.get('/getdetails', (req, res) => {
   res.json({ message: carDetails });
 });
