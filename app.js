@@ -55,18 +55,26 @@ function unparkCar(no) {
 }
 
 function getDetails(no) {
-  found = 0;
-  for (var i = 0; i < len; i++) {
-    if (carDetails[i].carNum == no || carDetails[i].slotNum == no) {
-      console.log(`${carDetails[i].carNum} is parked at slot ${carDetails[i].slotNum}`);
-      found = 1;
-      break;
-    }
+  const i=1;
+  const found = 0;
+  if(i<=no && no <=len)
+  {
+    console.log(`${carDetails[no].carNum} is parked at slot ${carDetails[no].slotNum}`);
+    return `${carDetails[no].carNum} is parked at slot ${carDetails[no].slotNum}`
   }
-  if (found == 1) {
-    return `${carDetails[i].carNum} is parked at slot ${carDetails[i].slotNum}`
-  } else {
-    return "Car Details Doesn't exist";
+  else{
+    for (var i = 0; i < len; i++) {
+      if (carDetails[i].carNum == no) {
+        console.log(`${carDetails[i].carNum} is parked at slot ${carDetails[i].slotNum}`);
+        found = 1;
+        break;
+      }
+    }
+    if (found == 1) {
+      return `${carDetails[i].carNum} is parked at slot ${carDetails[i].slotNum}`
+    } else {
+      return "Car Details Doesn't exist";
+    }
   }
 }
 
