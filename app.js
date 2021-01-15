@@ -39,24 +39,17 @@ function parkCar(no) {
 }
 
 function unparkCar(no) {
-  found = 0;
-  for (i = 0; i < len; i++) {
-    if (carDetails[i].slotNum == no) {
-      if (carDetails[i].carNum == 0) {
-        return "Slot is already empty";
-      } else {
-        console.log('Emptying...');
-        carDetails[i].carNum = 0;
-        console.log(carDetails[i].carNum);
-        slotavailable += 1;
-      }
-      found = 1;
-      break;
-    }
-  }
-  if (found == 1) {
+  const i=1;
+  if (carDetails[no].carNum == 0) {
+      return "Slot is already empty";
+  }else if(i<=no && no<=len)
+  {
+    console.log('Emptying...');
+    carDetails[no].carNum = 0;
+    slotavailable += 1;
     return `Car removed succesfully from slot ${no}`;
-  } else {
+  }else
+  {
     return 'No such slot exist';
   }
 }
